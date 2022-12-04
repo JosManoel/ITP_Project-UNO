@@ -11,6 +11,14 @@
     #define MAX_NAIPE 4
     #define MAX_VALUE_CARD 3
 
+    //Enum que define o indice dos naipes
+    enum suit{hearts, diamonds, clubs, spades, countSuit};
+
+    typedef struct{
+        char naipe[MAX_NAIPE];
+        int count;
+    } NaipeCount;
+
     typedef struct{
         char card[MAX_CARD];
         char value[MAX_VALUE_CARD];

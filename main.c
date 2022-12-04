@@ -40,12 +40,6 @@ int main() {
   char action[MAX_ACTION];
   char complement[MAX_LINE];
 
-  // Debugando mão
-  fprintf(stderr, "Quantidade de cartas na mao %d\n", qntCardHand);
-  for(int i = 0; i < qntCardHand; i++){
-    fprintf(stderr, "%s\n", playerHand[i].card);
-  }
-
   while(1) {
     do {
       debug("----- VEZ DO OUTRO JOGADOR -----");
@@ -68,34 +62,26 @@ int main() {
     
     // agora é a vez do seu bot jogar
     debug("----- MINHA VEZ -----");
-    char card[MAX_ACTION];
-
-    //Debugando carta anterior
-    debug(table[qntCard - 1].card);
-    debug(table[qntCard - 1].value);
-    debug(table[qntCard - 1].naipe);
-
 
     if(strcmp(table[qntCard - 1].value, "C") == 0){
-      debug("Comprar 4");
-      makeMovement("BUY 4");
-      scanf("%s ", card);
-      scanf("%s ", card);
-      scanf("%s ", card);
-      scanf("%s ", card);
+      //Compra 4 cartas e adciona a mao
+      playerHand = buyCard(playerHand, &qntCardHand, 4);
     }
 
     if(strcmp(table[qntCard - 1].value, "V") == 0){
-      debug("Comprar 2");
-      makeMovement("BUY 2");
-      scanf("%s ", card);
-      scanf("%s ", card);
+      //Compra 2 cartas e adciona a mao
+      playerHand = buyCard(playerHand, &qntCardHand, 2);
     }
 
     makeComment("Mas que coisa, nao?!");
-    returnPlayerId(my_id);
-    makeMovement("BUY 1");
-    scanf("%s", card);
+
+    //Compra 1 cartas e adciona a mao
+    // playerHand = buyCard(playerHand, &qntCardHand, 1);
+
+    // Descarta uma carta da mão
+    Card disCard;
+    disCard = createCard("A♦");
+    playerHand = discardCard(playerHand, disCard, &qntCardHand);
   }
 
   return 0;

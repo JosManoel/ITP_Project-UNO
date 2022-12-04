@@ -7,6 +7,7 @@
 
 void debug(char *message) { fprintf(stderr, "%s\n", message);}
 
+
 // Copia uma string a partir de um determinado ponto até outro ponto
 char* strcpyse(char* destination, const char* source, const int start, const int end){
     char auxString[MAX_LINE];
@@ -47,7 +48,7 @@ Card* addCard(Card *cardGroup, Card newCard, int *qnt){
 Card* removeCard(Card *cardGroup, Card exclCard, int *qnt){
     for(int i = 0; i < (*qnt -1); i++){
         if(strcmp(cardGroup[i].card, exclCard.card) == 0){
-
+            debug("Achou a carta");
             // Realoca os elementos do array a partir da card excluida
             for(int j = i; j < (*qnt - 1); j++) cardGroup[j] = cardGroup[j + 1];
             cardGroup = realloc(cardGroup, sizeof(Card) * (*qnt - 1));
