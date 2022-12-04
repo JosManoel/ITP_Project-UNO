@@ -10,12 +10,17 @@
 
 
 int main() {
-  char my_id[MAX_ID_SIZE];  
   char temp[MAX_LINE];
-
+  
+  // Variaveis responsaveis pela mesa 
   Card *table;
-  // Card carta;
   int qntCard = 0;
+
+  // Variaveis responsaveis pela mao
+  char tempHand[MAX_LINE];
+  char my_id[MAX_ID_SIZE];  
+  Card *playerHand;
+  int qntCardHand = 0;
 
   setbuf(stdin, NULL);   
   setbuf(stdout, NULL);  
@@ -24,14 +29,22 @@ int main() {
   // Leitura de inicio da partida
   scanf("PLAYERS %[^\n]\n", temp);
   scanf("YOU %s\n", my_id);
-  scanf("HAND %[^\n]\n", temp);
+  scanf("HAND %[^\n]\n", tempHand);
   scanf("TABLE %s\n", temp);
 
+  // Adicionando cartas a mão
+  playerHand = createHand(playerHand, tempHand, &qntCardHand);
 
   // === PARTIDA ===
 
   char action[MAX_ACTION];
   char complement[MAX_LINE];
+
+  // Debugando mão
+  fprintf(stderr, "Quantidade de cartas na mao %d\n", qntCardHand);
+  for(int i = 0; i < qntCardHand; i++){
+    fprintf(stderr, "%s\n", playerHand[i].card);
+  }
 
   while(1) {
     do {
@@ -57,7 +70,10 @@ int main() {
     debug("----- MINHA VEZ -----");
     char card[MAX_ACTION];
 
+    //Debugando carta anterior
     debug(table[qntCard - 1].card);
+    debug(table[qntCard - 1].value);
+    debug(table[qntCard - 1].naipe);
 
 
     if(strcmp(table[qntCard - 1].value, "C") == 0){

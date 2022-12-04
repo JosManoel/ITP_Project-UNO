@@ -1,10 +1,10 @@
 # Flags de compilação, utilizadas para passar paramentros para o gcc
+# 		  -Werror  \
 
 C_FLAGS = -g       \
 		  -std=c99 \
 		  -Wall	   \
 		  -Wextra  \
-		  -Werror  \
 		  -pedantic
 
 # ---------- CONTROLLERS ----------

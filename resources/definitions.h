@@ -12,10 +12,10 @@
     #define MAX_VALUE_CARD 3
 
     typedef struct{
-        char myId[MAX_ID_SIZE];
-        char **hand;
-        int handSize;
-    } Player;
+        char card[MAX_CARD];
+        char value[MAX_VALUE_CARD];
+        char naipe[MAX_NAIPE];
+    } Card;
 
     typedef struct{
         char action[MAX_ACTION];
@@ -23,10 +23,5 @@
         char compt[MAX_ACTION];
     } Movement;
 
-    typedef struct{
-        char card[MAX_CARD];
-        char value[MAX_VALUE_CARD];
-        char naipe[MAX_NAIPE];
-    } Card;
 
 #endif
