@@ -1,33 +1,30 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-// Add resources
 #include "resources/definitions.h"
 #include "resources/funcs.h"
-
-// Add controllers
 #include "controllers/movementController.h"
 #include "controllers/commentController.h"
 #include "controllers/playerController.h"
 
+
 int main() {
   char my_id[MAX_ID_SIZE];  
-  char temp[MAX_LINE];   
+  char temp[MAX_LINE];
+
+  Card *table;
+  // Card carta;
+  int qntCard = 0;
 
   setbuf(stdin, NULL);   
   setbuf(stdout, NULL);  
   setbuf(stderr, NULL);
 
-  // === INÍCIO DA PARTIDA ===
-
+  // Leitura de inicio da partida
   scanf("PLAYERS %[^\n]\n", temp);
-  debug(temp);
-
-  // Lê o identificador do próprio bot
   scanf("YOU %s\n", my_id);
-  // Lê mão a ser recebida
   scanf("HAND %[^\n]\n", temp);
-  // Lê a carta aberta sobre a mesa. Ex: TABLE 8♣
   scanf("TABLE %s\n", temp);
 
 
@@ -37,17 +34,48 @@ int main() {
   char complement[MAX_LINE];
 
   while(1) {
-    debug("----- VEZ DO OUTRO JOGADOR -----");
     do {
+      debug("----- VEZ DO OUTRO JOGADOR -----");
+
       scanf("%s %s", action, complement);
- 
+
+      if((strcmp(action,"DISCARD") == 0)){
+        // Add carta ao monte da mesa (table)
+        debug("nova carta na mesa");
+        table = addCard(table, createCard(complement), &qntCard);
+
+        // Identifica a troca de naipe e recebe o proximo naipe
+        if((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "A") == 0) ){
+          debug("trocou de naipe");
+          scanf("%s", temp);
+        }
+      }
+
     } while (strcmp(action, "TURN") || strcmp(complement, my_id));
     
     // agora é a vez do seu bot jogar
     debug("----- MINHA VEZ -----");
-    
+    char card[MAX_ACTION];
 
-    char card[] = "A♥ ♥";
+    debug(table[qntCard - 1].card);
+
+
+    if(strcmp(table[qntCard - 1].value, "C") == 0){
+      debug("Comprar 4");
+      makeMovement("BUY 4");
+      scanf("%s ", card);
+      scanf("%s ", card);
+      scanf("%s ", card);
+      scanf("%s ", card);
+    }
+
+    if(strcmp(table[qntCard - 1].value, "V") == 0){
+      debug("Comprar 2");
+      makeMovement("BUY 2");
+      scanf("%s ", card);
+      scanf("%s ", card);
+    }
+
     makeComment("Mas que coisa, nao?!");
     returnPlayerId(my_id);
     makeMovement("BUY 1");
