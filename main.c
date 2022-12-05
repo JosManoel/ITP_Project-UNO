@@ -8,81 +8,106 @@
 #include "controllers/commentController.h"
 #include "controllers/playerController.h"
 
+int main()
+{
+    char action[MAX_ACTION];   // Armazena a acao executada.
+    char complement[MAX_LINE]; // Armazena o complemento.
+    char compt2ry[MAX_NAIPE];  // Armazena o complemento secundario.
+    char temp[MAX_LINE];       // String temporaria.
 
-int main() {
-  char temp[MAX_LINE];
-  
-  // Variaveis responsaveis pela mesa 
-  Card *table;
-  int qntCard = 0;
+    Card *table;       // Array de cartas da mesa.
+    int qntCard = 0;   // Quantidade de cartas descartadas.
+    int splPlayer = 0; // Verifica se o C ou V na mesa é para o player
 
-  // Variaveis responsaveis pela mao
-  char tempHand[MAX_LINE];
-  char my_id[MAX_ID_SIZE];  
-  Card *playerHand;
-  int qntCardHand = 0;
+    char tempHand[MAX_LINE]; // Recebe a mao inicial.
+    char my_id[MAX_ID_SIZE]; // Recebe o ID do bot.
+    Card *playerHand;        // Array de cartas na mão.
+    Card disCard;            // Carta que será descartada.
+    int qntHand = 0;         // Quantidade de cartas na mão.
 
-  setbuf(stdin, NULL);   
-  setbuf(stdout, NULL);  
-  setbuf(stderr, NULL);
 
-  // Leitura de inicio da partida
-  scanf("PLAYERS %[^\n]\n", temp);
-  scanf("YOU %s\n", my_id);
-  scanf("HAND %[^\n]\n", tempHand);
-  scanf("TABLE %s\n", temp);
+    // Limpa os buffers
+    setbuf(stdin, NULL);
+    setbuf(stdout, NULL);
+    setbuf(stderr, NULL);
 
-  // Adicionando cartas a mão
-  playerHand = createHand(playerHand, tempHand, &qntCardHand);
+    // Leitura de inicio da partida
+    scanf("PLAYERS %[^\n]\n", temp);
+    scanf("YOU %s\n", my_id);
+    scanf("HAND %[^\n]\n", tempHand);
+    scanf("TABLE %s\n", temp);
 
-  // === PARTIDA ===
 
-  char action[MAX_ACTION];
-  char complement[MAX_LINE];
+    // Adicionando cartas a mão
+    playerHand = createHand(playerHand, tempHand, &qntHand);
 
-  while(1) {
-    do {
-      debug("----- VEZ DO OUTRO JOGADOR -----");
 
-      scanf("%s %s", action, complement);
+    while (1)
+    {
+        do
+        {
+            scanf("%s %s", action, complement);
 
-      if((strcmp(action,"DISCARD") == 0)){
-        // Add carta ao monte da mesa (table)
-        debug("nova carta na mesa");
-        table = addCard(table, createCard(complement), &qntCard);
+            if ((strcmp(action, "DISCARD") == 0))
+            {
+                // Add carta ao monte da mesa (table)
+                table = addCard(table, createCard(complement), &qntCard);
 
-        // Identifica a troca de naipe e recebe o proximo naipe
-        if((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "A") == 0) ){
-          debug("trocou de naipe");
-          scanf("%s", temp);
+                // Identifica a troca de naipe e recebe o proximo naipe
+                if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "A") == 0))
+                {
+                    scanf("%s", compt2ry);
+                    strcpy(table[qntCard - 1].naipe, compt2ry);
+                }
+            }
+
+        } while (strcmp(action, "TURN") || strcmp(complement, my_id));
+
+
+        if (strcmp(table[qntCard - 1].value, "C") == 0)
+        {
+            /*
+                Compra 4 cartas se tiver um coringa na mesa
+                O comentario para essa acao tambem deve ser feito aqui.
+            */
+
+            makeComment("Eu acredito no coração das cartas");
+            playerHand = buyCard(playerHand, &qntHand, 4);
         }
-      }
+        else if (strcmp(table[qntCard - 1].value, "V") == 0)
+        {
+            /*
+                Compra 2 cartas se tiver um valete na mesa
+                O comentario para essa acao tambem deve ser feito aqui.
+            */
 
-    } while (strcmp(action, "TURN") || strcmp(complement, my_id));
-    
-    // agora é a vez do seu bot jogar
-    debug("----- MINHA VEZ -----");
+            makeComment("Assim você está me ajudando. Na proxima vem um combo");
+            playerHand = buyCard(playerHand, &qntHand, 2);
+        }
+        else
+        {
+            if (determineCard(&disCard, table[qntCard - 1], playerHand, &qntHand))
+            {
+                /*
+                    Caso determineCard encotrar uma carta, aqui ela será descartada.
+                    O comentário para essa ação também deve ser feito aqui.
+                */
 
-    if(strcmp(table[qntCard - 1].value, "C") == 0){
-      //Compra 4 cartas e adciona a mao
-      playerHand = buyCard(playerHand, &qntCardHand, 4);
+                makeComment("Vou descartar!");
+                playerHand = discardCard(playerHand, disCard, &qntHand);
+            }
+            else
+            {
+                /*
+                    Caso determineCard não encontre nenhuma carta, será comprado uma carta.
+                    O comentário para essa ação também deve ser feito aqui.
+                */
+
+                makeComment("Mas que coisa, nao?!");
+                playerHand = buyCard(playerHand, &qntHand, 1);
+            }
+        }
     }
 
-    if(strcmp(table[qntCard - 1].value, "V") == 0){
-      //Compra 2 cartas e adciona a mao
-      playerHand = buyCard(playerHand, &qntCardHand, 2);
-    }
-
-    makeComment("Mas que coisa, nao?!");
-
-    //Compra 1 cartas e adciona a mao
-    // playerHand = buyCard(playerHand, &qntCardHand, 1);
-
-    // Descarta uma carta da mão
-    Card disCard;
-    disCard = createCard("A♦");
-    playerHand = discardCard(playerHand, disCard, &qntCardHand);
-  }
-
-  return 0;
+    return 0;
 }

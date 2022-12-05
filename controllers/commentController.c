@@ -6,7 +6,7 @@
 #include "../resources/definitions.h"
 #include "../resources/funcs.h"
 
-void makeComment(char *comment){
-    debug("movimento iniciado");
+void makeComment(char *comment)
+{
     printf("SAY %s\n", comment);
 }
