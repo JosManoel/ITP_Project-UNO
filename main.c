@@ -48,10 +48,16 @@ int main()
         {
             scanf("%s %s", action, complement);
 
-            if ((strcmp(action, "DISCARD") == 0))
+            // Valida se o Coringa ou Valete que está na mesa é para o player
+            if ((strcmp(action, "BUY") == 0) && splPlayer){ splPlayer = 0; }
+
+            if (strcmp(action, "DISCARD") == 0)
             {
                 // Add carta ao monte da mesa (table)
                 table = addCard(table, createCard(complement), &qntCard);
+
+                // Identifica um Valete ou um Coringa na mesa
+                if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "V") == 0)){ splPlayer = 1; }
 
                 // Identifica a troca de naipe e recebe o proximo naipe
                 if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "A") == 0))
@@ -64,7 +70,7 @@ int main()
         } while (strcmp(action, "TURN") || strcmp(complement, my_id));
 
 
-        if (strcmp(table[qntCard - 1].value, "C") == 0)
+        if ((strcmp(table[qntCard - 1].value, "C") == 0) && splPlayer)
         {
             /*
                 Compra 4 cartas se tiver um coringa na mesa
@@ -74,7 +80,7 @@ int main()
             makeComment("Eu acredito no coração das cartas");
             playerHand = buyCard(playerHand, &qntHand, 4);
         }
-        else if (strcmp(table[qntCard - 1].value, "V") == 0)
+        else if ((strcmp(table[qntCard - 1].value, "V") == 0) && splPlayer)
         {
             /*
                 Compra 2 cartas se tiver um valete na mesa
