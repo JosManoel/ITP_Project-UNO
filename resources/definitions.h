@@ -11,6 +11,11 @@
 #define MAX_NAIPE 4
 #define MAX_VALUE_CARD 3
 
+enum bool{
+	false,
+	true
+};
+
 // Enum que define o indice dos naipes
 enum suit
 {

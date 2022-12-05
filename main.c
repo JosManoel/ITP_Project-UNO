@@ -17,7 +17,7 @@ int main()
 
     Card *table;       // Array de cartas da mesa.
     int qntCard = 0;   // Quantidade de cartas descartadas.
-    int splPlayer = 0; // Verifica se o C ou V na mesa é para o player
+    int splPlayer = false; // Verifica se o C ou V na mesa é para o player
 
     char tempHand[MAX_LINE]; // Recebe a mao inicial.
     char my_id[MAX_ID_SIZE]; // Recebe o ID do bot.
@@ -49,7 +49,7 @@ int main()
             scanf("%s %s", action, complement);
 
             // Valida se o Coringa ou Valete que está na mesa é para o player
-            if ((strcmp(action, "BUY") == 0) && splPlayer){ splPlayer = 0; }
+            if ((strcmp(action, "BUY") == 0) && splPlayer){ splPlayer = false; }
 
             if (strcmp(action, "DISCARD") == 0)
             {
@@ -57,7 +57,7 @@ int main()
                 table = addCard(table, createCard(complement), &qntCard);
 
                 // Identifica um Valete ou um Coringa na mesa
-                if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "V") == 0)){ splPlayer = 1; }
+                if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "V") == 0)){ splPlayer = true; }
 
                 // Identifica a troca de naipe e recebe o proximo naipe
                 if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "A") == 0))
