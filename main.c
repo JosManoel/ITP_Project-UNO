@@ -26,6 +26,8 @@ int main()
     Card disCard;            // Carta que será descartada.
     int qntHand = 0;         // Quantidade de cartas na mão.
 
+	int duelTime = true; // É HORA DO DUELO!
+
 
     // Limpa os buffers
     setbuf(stdin, NULL);
@@ -70,6 +72,10 @@ int main()
 
         } while (strcmp(action, "TURN") || strcmp(complement, my_id));
 
+		if(duelTime){
+			makeComment("É HORA DO DUELO!");
+			duelTime = false;
+		}
 
         if ((strcmp(table[qntCard - 1].value, "C") == 0) && splPlayer)
         {
