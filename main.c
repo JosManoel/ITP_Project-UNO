@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <string.h>
 
 #include "resources/definitions.h"
@@ -15,8 +16,8 @@ int main()
     char compt2ry[MAX_NAIPE];  // Armazena o complemento secundario.
     char temp[MAX_LINE];       // String temporaria.
 
-    Card *table;       // Array de cartas da mesa.
-    int qntCard = 0;   // Quantidade de cartas descartadas.
+    Card *table;           // Array de cartas da mesa.
+    int qntCard = 0;       // Quantidade de cartas descartadas.
     int splPlayer = false; // Verifica se o C ou V na mesa é para o player
 
     char tempHand[MAX_LINE]; // Recebe a mao inicial.
@@ -74,20 +75,20 @@ int main()
         {
             /*
                 Compra 4 cartas se tiver um coringa na mesa
-                O comentario para essa acao tambem deve ser feito aqui.
+                O comentario para essa acao tambem é feito aqui.
             */
 
-            makeComment("Eu acredito no coração das cartas");
+            randomCommentBuy();
             playerHand = buyCard(playerHand, &qntHand, 4);
         }
         else if ((strcmp(table[qntCard - 1].value, "V") == 0) && splPlayer)
         {
             /*
                 Compra 2 cartas se tiver um valete na mesa
-                O comentario para essa acao tambem deve ser feito aqui.
+                O comentario para essa acao tambem é feito aqui.
             */
 
-            makeComment("Assim você está me ajudando. Na proxima vem um combo");
+            randomCommentBuy();
             playerHand = buyCard(playerHand, &qntHand, 2);
         }
         else
@@ -96,20 +97,20 @@ int main()
             {
                 /*
                     Caso determineCard encotrar uma carta, aqui ela será descartada.
-                    O comentário para essa ação também deve ser feito aqui.
+                    O comentário para essa ação também é feito aqui.
                 */
 
-                makeComment("Vou descartar!");
+                randomCommentDiscard(disCard);
                 playerHand = discardCard(playerHand, disCard, &qntHand);
             }
             else
             {
                 /*
                     Caso determineCard não encontre nenhuma carta, será comprado uma carta.
-                    O comentário para essa ação também deve ser feito aqui.
+                    O comentário para essa ação também é feito aqui.
                 */
 
-                makeComment("Mas que coisa, nao?!");
+                randomCommentBuy();
                 playerHand = buyCard(playerHand, &qntHand, 1);
             }
         }

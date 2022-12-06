@@ -6,7 +6,6 @@
 #include "../resources/definitions.h"
 #include "../resources/funcs.h"
 #include "../controllers/playerController.h"
-#include "../controllers/commentController.h"
 
 
 // Compra n cartas e adiciona a mão
@@ -48,6 +47,6 @@ Card *discardCard(Card *cardGroup, Card disCard, int *handSize)
 // Determina qual carta será jogada
 int determineCard(Card *card, Card tableCard, Card *playerHand, int *handSize)
 {
-    *card = createCard("7♥");
-    return 0;
+    *card = createCard("V♠");
+    return false;
 }
