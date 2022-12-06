@@ -35,9 +35,12 @@ void randomCommentBuy()
         "Jogue seus jogos, enquanto eu me torno o ser mais poderoso do mundo!",
         "Este duelo ainda não acabou!",
         "Fale até cansar...",
-        "Isso só aumenta a minha probabilidade de conseguir o Exodia!"};
+        "Isso só aumenta a minha probabilidade de conseguir o Exodia!",
+        "Espera só até eu lançar o lendário dragão branco de olhos azuis!",
+        "Quando eu conseguir um dos três deuses egípcios, esse duelo acabará!",
+	};
 
-    makeComment(phasesBuyAction[rand() % 7]);
+    makeComment(phasesBuyAction[rand() % 9]);
 }
 
 // Realiza um comentário de acordo com a carta descartada
