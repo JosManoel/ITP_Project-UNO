@@ -26,7 +26,9 @@ char *strcpyse(char *destination, const char *source, const int start, const int
 // Retorna o naipe da carta
 char *extractNaipe(char *destination, const char *source)
 {
-    strcpyse(destination, source, (source[1] == '0') ? 2 : 1, (int)strlen(source));
+    int start = (source[1] == '0') ? 2 : 1;
+
+    strcpyse(destination, source, start, start + MAX_NAIPE);
     return destination;
 }
 
@@ -62,7 +64,7 @@ Card *removeCard(Card *cardGroup, Card exclCard, int *qnt)
             // Realoca os elementos do array a partir da card excluida
             for (int j = i; j < (*qnt - 1); j++)
                 cardGroup[j] = cardGroup[j + 1];
-                
+
             cardGroup = realloc(cardGroup, sizeof(Card) * (*qnt - 1));
             (*qnt)--;
         }
