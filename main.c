@@ -16,9 +16,10 @@ int main()
     char compt2ry[MAX_NAIPE];  // Armazena o complemento secundario.
     char temp[MAX_LINE];       // String temporaria.
 
-    Card *table;           // Array de cartas da mesa.
-    int qntCard = 0;       // Quantidade de cartas descartadas.
-    int splPlayer = false; // Verifica se o C ou V na mesa é para o player
+    Card *table;             // Array de cartas da mesa.
+    int qntCard = 0;         // Quantidade de cartas descartadas.
+    int splPlayer = false;   // Verifica se o C ou V na mesa é para o player
+    char initCard[MAX_CARD]; // Carta inicial
 
     char tempHand[MAX_LINE]; // Recebe a mao inicial.
     char my_id[MAX_ID_SIZE]; // Recebe o ID do bot.
@@ -26,7 +27,7 @@ int main()
     Card disCard;            // Carta que será descartada.
     int qntHand = 0;         // Quantidade de cartas na mão.
 
-	int duelTime = true; // É HORA DO DUELO!
+    int duelTime = true; // É HORA DO DUELO!
 
 
     // Limpa os buffers
@@ -34,12 +35,15 @@ int main()
     setbuf(stdout, NULL);
     setbuf(stderr, NULL);
 
+
     // Leitura de inicio da partida
     scanf("PLAYERS %[^\n]\n", temp);
     scanf("YOU %s\n", my_id);
     scanf("HAND %[^\n]\n", tempHand);
-    scanf("TABLE %s\n", temp);
+    scanf("TABLE %s\n", initCard);
 
+    // Adicionando carta inicial da mesa
+    table = addCard(table, createCard(initCard), &qntCard);
 
     // Adicionando cartas a mão
     playerHand = createHand(playerHand, tempHand, &qntHand);
@@ -52,7 +56,10 @@ int main()
             scanf("%s %s", action, complement);
 
             // Valida se o Coringa ou Valete que está na mesa é para o player
-            if ((strcmp(action, "BUY") == 0) && splPlayer){ splPlayer = false; }
+            if ((strcmp(action, "BUY") == 0) && splPlayer)
+            {
+                splPlayer = false;
+            }
 
             if (strcmp(action, "DISCARD") == 0)
             {
@@ -60,7 +67,10 @@ int main()
                 table = addCard(table, createCard(complement), &qntCard);
 
                 // Identifica um Valete ou um Coringa na mesa
-                if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "V") == 0)){ splPlayer = true; }
+                if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "V") == 0))
+                {
+                    splPlayer = true;
+                }
 
                 // Identifica a troca de naipe e recebe o proximo naipe
                 if ((strcmp(table[qntCard - 1].value, "C") == 0) || (strcmp(table[qntCard - 1].value, "A") == 0))
@@ -72,10 +82,11 @@ int main()
 
         } while (strcmp(action, "TURN") || strcmp(complement, my_id));
 
-		if(duelTime){
-			makeComment("É HORA DO DUELO!");
-			duelTime = false;
-		}
+        if (duelTime)
+        {
+            makeComment("É HORA DO DUELO!");
+            duelTime = false;
+        }
 
         if ((strcmp(table[qntCard - 1].value, "C") == 0) && splPlayer)
         {

@@ -1,5 +1,4 @@
 # Flags de compilação, utilizadas para passar paramentros para o gcc
-# 		  -Werror  \
 
 C_FLAGS = -g       \
 		  -std=c99 \
@@ -20,7 +19,10 @@ CONTROLLERS = commentController.o movementController.o playerController.o
 
 FUNCS = resources/funcs.c
 
-# Compilar componentes (make yugi)
+# Compilar componentes todos os componentes
+all: yugi clean
+	clear
+	@ echo 'Yugi: É HORA DO DUELO!'
 
 yugi: main.c funcs commentController movementController playerController
 	gcc funcs.o $(CONTROLLERS) main.c -o yugi $(C_FLAGS)
@@ -36,3 +38,7 @@ movementController: $(MOVEMENT_CONTROLLER)
 
 playerController: $(PLAYER_CONTROLLER)
 	gcc $(PLAYER_CONTROLLER) -c $(C_FLAGS)
+
+# Limpa os arquivos .o
+clean:
+	rm -rf *.o *~ printy

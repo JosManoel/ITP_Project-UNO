@@ -3,6 +3,12 @@
 #include <string.h>
 #include "definitions.h"
 
+typedef struct
+{
+    char *string;
+    int size;
+} String;
+
 // Funções comuns a todos os arquivos
 
 void debug(char *message) { fprintf(stderr, "%s\n", message); }
@@ -12,10 +18,7 @@ char *strcpyse(char *destination, const char *source, const int start, const int
 {
     char auxString[MAX_LINE];
 
-    for (int i = start; i < end; i++)
-    {
-        auxString[i - start] = source[i];
-    }
+    for (int i = start; i < end; i++){ auxString[i - start] = source[i]; }
 
     auxString[end] = '\0';
     strcpy(destination, auxString);
@@ -65,7 +68,6 @@ Card *removeCard(Card *cardGroup, Card exclCard, int *qnt)
             for (int j = i; j < (*qnt - 1); j++)
                 cardGroup[j] = cardGroup[j + 1];
 
-            cardGroup = realloc(cardGroup, sizeof(Card) * (*qnt - 1));
             (*qnt)--;
         }
     }

@@ -22,6 +22,8 @@ char *determineEffect(Card card)
         return "meu oponente perderá o próximo turno";
     if (strcmp(card.value, "A") == 0)
         return "troco o atributo das cartas";
+
+    return "não encontrado";
 }
 
 // Realiza um comentário aleatório sobre a ação de comprar cartas
@@ -38,7 +40,7 @@ void randomCommentBuy()
         "Isso só aumenta a minha probabilidade de conseguir o Exodia!",
         "Espera só até eu lançar o lendário dragão branco de olhos azuis!",
         "Quando eu conseguir um dos três deuses egípcios, esse duelo acabará!",
-	};
+    };
 
     makeComment(phasesBuyAction[rand() % 9]);
 }
@@ -47,7 +49,7 @@ void randomCommentBuy()
 void randomCommentDiscard(Card disCard)
 {
     makeComment("Meu turno!");
-    debug(disCard.card);
+
     if ((strcmp(disCard.value, "C") == 0) || (strcmp(disCard.value, "V") == 0))
     {
         printf("SAY Você acaba de ativar minha carta %s! Agora você terá que %s!\n", disCard.card, determineEffect(disCard));

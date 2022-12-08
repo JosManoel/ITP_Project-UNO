@@ -66,3 +66,32 @@ Card *createHand(Card *cardGroup, char *handString, int *handSize)
 
     return cardGroup;
 }
+
+// Retorna a primeira carta de uma lista de cartas de acordo com a string de pesquisa
+int searchCard(Card *card, char *searchString, char *complement, Card *playerHand, int *handSize)
+{
+
+    for (int i = 0; i < *handSize; i++)
+    {
+        // Pesquisa caso não seja utilizado um complemento
+        if (strlen(complement) == 0)
+        {
+            if ((strcmp(playerHand[i].value, searchString) == 0) || (strcmp(playerHand[i].naipe, searchString) == 0))
+            {
+                *card = playerHand[i];
+                return true;
+            }
+        }
+        // Pesquisa caso seja utilizado um complemento
+        else
+        {
+            if ((strcmp(playerHand[i].value, searchString) == 0) && (strcmp(playerHand[i].naipe, complement) == 0))
+            {
+                *card = playerHand[i];
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
