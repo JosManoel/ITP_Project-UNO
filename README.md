@@ -1,10 +1,9 @@
 <h1 align = "center">
-  <img src = "https://i.imgur.com/wZEodaH.png" style = "width: 60%;">
+  <img src = "https://i.imgur.com/wZEodaH.png" style = "width: 40%;">
 
   <p align="center">
     <img src="https://img.shields.io/github/last-commit/JosManoel/ITP_Project-UNO">
     <img src="https://img.shields.io/github/languages/code-size/JosManoel/ITP_Project-UNO">
-    <img src="https://img.shields.io/github/watchers/JosManoel/ITP_Project-UNO?style=social">
   </p>
 </h1>
 
@@ -117,6 +116,6 @@ Neste projeto você encontrará 6 arquivos responsáveis pelo bot:
 
 <div align = "center">
 
-  👋 Feito por [JosManoel](https://github.com/JosManoel) com ☕ , 🎧 e 💻.
+  👋 Feito com muito ☕ , 🎧, 💻 e mais um pouco de ☕.
 
 </div>
