@@ -18,7 +18,7 @@
 
 <h2 id = "sobre-este-projeto">👨🏻‍💻 Sobre este projeto </h2>
 
-Este repositório contém o projeto final desenvolvido pelos alunos José Manoel Freitas da Silva e João Marcelo de Souza, na matéria de **Introdução às Técnicas de Programação** do Bacharelado em Tecnologia da Informação, ofertada pelo IMD/UFRN. 
+Este repositório contém o projeto final desenvolvido pelos alunos [José Manoel Freitas da Silva](https://github.com/JosManoel) e [João Marcelo de Souza](https://github.com/MarceloJoao), na matéria de **Introdução às Técnicas de Programação** do Bacharelado em Tecnologia da Informação, ofertada pelo IMD/UFRN. 
 
 Neste trabalho desenvolvemos um bot em C que joga uma versão simplificada do **UNO Card Game**, criada pelos professores especificamente para esta atividade. Dentre as particularidades dessa versão está a utilização de um baralho convencional e algumas limitações, como a impossibilidade de bloquear ações de outros jogadores fora do seu turno.
 
