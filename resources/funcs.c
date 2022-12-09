@@ -18,7 +18,10 @@ char *strcpyse(char *destination, const char *source, const int start, const int
 {
     char auxString[MAX_LINE];
 
-    for (int i = start; i < end; i++){ auxString[i - start] = source[i]; }
+    for (int i = start; i < end; i++)
+    {
+        auxString[i - start] = source[i];
+    }
 
     auxString[end] = '\0';
     strcpy(destination, auxString);
@@ -60,7 +63,7 @@ Card *addCard(Card *cardGroup, Card newCard, int *qnt)
 // Remove uma carta de um grupo de tamanho dinamico
 Card *removeCard(Card *cardGroup, Card exclCard, int *qnt)
 {
-    for (int i = 0; i < (*qnt - 1); i++)
+    for (int i = 0; i <= (*qnt); i++)
     {
         if (strcmp(cardGroup[i].card, exclCard.card) == 0)
         {

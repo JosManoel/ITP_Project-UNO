@@ -42,6 +42,7 @@ int main()
     scanf("HAND %[^\n]\n", tempHand);
     scanf("TABLE %s\n", initCard);
 
+
     // Adicionando carta inicial da mesa
     table = addCard(table, createCard(initCard), &qntCard);
 
@@ -118,6 +119,17 @@ int main()
                 */
 
                 randomCommentDiscard(disCard);
+                table = addCard(table, disCard, &qntCard);
+
+                if ((strcmp(disCard.value, "C") == 0) || (strcmp(disCard.value, "A") == 0))
+                {
+                    char auxNaipe[MAX_NAIPE]; // Naipe auxiliar
+
+                    // Troca o naipe pelo naipe escolhido ao descartar um Coringa ou um Valete
+                    predmtNaipe(auxNaipe, playerHand, qntHand);
+                    strcpy(table[qntCard - 1].naipe, auxNaipe);
+                }
+
                 playerHand = discardCard(playerHand, disCard, &qntHand);
             }
             else
