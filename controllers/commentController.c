@@ -62,7 +62,7 @@ void randomCommentDiscard(Card disCard)
 
     else if (strcmp(disCard.value, "A") == 0)
     {
-        printf("SAY Ativo %s e %s.", disCard.card, determineEffect(disCard));
+        printf("SAY Ativo %s e %s.\n", disCard.card, determineEffect(disCard));
     }
     else
     {
